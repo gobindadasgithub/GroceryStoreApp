@@ -26,7 +26,7 @@
         android:drawablePadding="13dp"
         android:elevation="3dp"
         android:padding="13dp"
-        android:text="Email"
+        android:hint="Email"
         android:textColor="#51E855"
         app:layout_constraintEnd_toEndOf="@+id/logn_image"
         app:layout_constraintHorizontal_bias="0.0"
@@ -45,7 +45,8 @@
         android:elevation="3dp"
         android:padding="13dp"
         android:textColor="#51E855"
-        android:text="Password"
+        android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/email_logn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +82,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn"
-        app:layout_constraintVertical_bias=".2" />
+        app:layout_constraintVertical_bias=".2"
+        app:layout_constraintHorizontal_bias=".4"/>
 
     <TextView
         android:id="@+id/sign_Up"
