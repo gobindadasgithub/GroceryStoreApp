@@ -1,4 +1,4 @@
-package com.example.mygrocerystore;
+package com.example.mygrocerystore.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +9,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mygrocerystore.R;
 import com.example.mygrocerystore.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +30,7 @@ private EditText name,email,password;
     private TextView  signIn;
     FirebaseAuth auth;
     FirebaseDatabase firebaseDatabase;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ private EditText name,email,password;
         name=findViewById(R.id.name_reg);
         email=findViewById(R.id.email_reg);
         password=findViewById(R.id.password_reg);
+        progressBar=findViewById(R.id.progressber);
+        progressBar.setVisibility(View.GONE);
         auth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
 
@@ -46,12 +51,13 @@ private EditText name,email,password;
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistrictionActivity.this,LoginActivity.class));
+                startActivity(new Intent(RegistrictionActivity.this, LoginActivity.class));
             }
         });
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
 
 
                 String username=name.getText().toString();
@@ -82,10 +88,12 @@ private EditText name,email,password;
                                         UserModel userModel=new UserModel(username,useremail,userpassword);
                                         String id=task.getResult().getUser().getUid();
                                         firebaseDatabase.getReference().child("Users").child(id).setValue(userModel);
+                                        progressBar.setVisibility(View.GONE);
 
                                         Toast.makeText(RegistrictionActivity.this,"Registraction Successfull",Toast.LENGTH_SHORT).show();
                                     }
                                     else{
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(RegistrictionActivity.this,"Error"+task.getException(),Toast.LENGTH_SHORT).show();
 
                                     }

@@ -1,4 +1,4 @@
-package com.example.mygrocerystore;
+package com.example.mygrocerystore.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +9,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mygrocerystore.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email,passsword;
     private TextView signUp;
     FirebaseAuth auth;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -35,18 +38,21 @@ public class LoginActivity extends AppCompatActivity {
        email=findViewById(R.id.email_logn);
        passsword=findViewById(R.id.password_logn);
        signUp=findViewById(R.id.sign_Up);
+       progressBar=findViewById(R.id.progressber);
+       progressBar.setVisibility(View.GONE);
        auth=FirebaseAuth.getInstance();
 
        signUp.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(LoginActivity.this,RegistrictionActivity.class));
+               startActivity(new Intent(LoginActivity.this, RegistrictionActivity.class));
            }
        });
 
        signIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               progressBar.setVisibility(View.VISIBLE);
 
                String useremail=email.getText().toString();
                String userepassword=passsword.getText().toString();
@@ -69,10 +75,12 @@ public class LoginActivity extends AppCompatActivity {
               @Override
               public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                   if (task.isSuccessful()){
+                       progressBar.setVisibility(View.GONE);
                       Toast.makeText(LoginActivity.this,"Login Successfull",Toast.LENGTH_SHORT).show();
 
                   }
                   else{
+                      progressBar.setVisibility(View.GONE);
                       Toast.makeText(LoginActivity.this,"Error"+task.getException(),Toast.LENGTH_SHORT).show();
 
 
