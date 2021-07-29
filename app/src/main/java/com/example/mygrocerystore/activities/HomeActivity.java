@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mygrocerystore.MainActivity;
 import com.example.mygrocerystore.R;
 import com.google.firebase.auth.FirebaseAuth;
 

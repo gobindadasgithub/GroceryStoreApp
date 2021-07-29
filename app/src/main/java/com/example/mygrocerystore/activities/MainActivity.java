@@ -1,4 +1,4 @@
-package com.example.mygrocerystore;
+package com.example.mygrocerystore.activities;
 
 
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 
+import com.example.mygrocerystore.R;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
