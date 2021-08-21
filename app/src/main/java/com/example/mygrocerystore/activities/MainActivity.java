@@ -2,21 +2,19 @@ package com.example.mygrocerystore.activities;
 
 
 import android.os.Bundle;
-
 import android.view.Menu;
 
-
-import com.example.mygrocerystore.R;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mygrocerystore.databinding.ActivityMainBinding;
+import com.example.mygrocerystore.R;
+import com.google.android.material.navigation.NavigationView;
+
+import static androidx.navigation.ui.NavigationUI.setupActionBarWithNavController;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,15 +24,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.mygrocerystore.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
-        setSupportActionBar(binding.appBarMain.toolbar);
+        setSupportActionBar();
 
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_category, R.id.nav_profile,R.id.nav_offers,R.id.nav_new_products,R.id.nav_my_orders
         ,R.id.nav_my_carts)
@@ -42,9 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        try {
+            setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
+    private void setSupportActionBar() {
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
